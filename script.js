@@ -1,53 +1,50 @@
-var messageCount = document.querySelectorAll('p').length;
+var messageCount = $('p').length;
 
-document.querySelector('#compteur').textContent = messageCount;
+console.log(messageCount)
+
+$('#compteur').text(messageCount);
 
 // capture poubelle
 
-document.querySelectorAll(".trash")
-.forEach(trash => {
-    trash.addEventListener("click", function () {
-    trash.parentNode.remove()
-    var messageCount = document.querySelectorAll('p').length;
-    document.querySelector('#compteur').textContent = messageCount;
-} 
+$('body').on("click", '.trash',
+    function() {
+        $(this).parent().remove();
+        var messageCount = $('p').length;
+        $('#compteur').text(messageCount);
+})
+
+$('#btn-add').click(function() {
+    var newMessageText = $("#text-input").val();
+    $('body').append(
+        `<div class="row">
+        <img class="avatar" src="avatar-1.jpg">
+        <div>
+            <h6>Britney</h6>
+            <p>${newMessageText}</p>
+        </div>
+        <img class="trash" src="trash.png" alt="poubelle">
+    </div>`
     )
-});
 
-document.querySelector('#btn-add').addEventListener("click", function() {
+    $("#text-input").val('');
 
-    var newDiv = document.querySelector('body').appendChild(document.createElement("div"))
-    newDiv.className = "row";
-    var newAvatar = newDiv.appendChild(document.createElement("img"));
-    newAvatar.className = "avatar";
-    newAvatar.src = "avatar-1.jpg";
-    var newMessageDiv = newDiv.appendChild(document.createElement("div"));
-    newMessageDiv.className= "messageContainer";
-    var newName = newMessageDiv.appendChild(document.createElement("h6"));
-    newName.textContent = "Adele";
-    var lastMessage = newMessageDiv.appendChild(document.createElement("p"));
-    lastMessage.textContent = document.querySelector("#text-input").value;
-    var newTrash = newDiv.appendChild(document.createElement("img"));
-    newTrash.className = "trash";
-    newTrash.src = "trash.png";
+    var messageCount = $('p').length;
+    $('#compteur').text(messageCount);
 
-    document.querySelector("#text-input").value = "";
-
-    var messageCount = document.querySelectorAll('p').length;
-    document.querySelector('#compteur').textContent = messageCount;
-
-    document.querySelectorAll(".trash")
-.forEach(trash => {
-    trash.addEventListener("click", function () {
-    trash.parentNode.remove()
-    var messageCount = document.querySelectorAll('p').length;
-    document.querySelector('#compteur').textContent = messageCount;
-} 
-    )
-});
 }
-
 )
+
+$('#btn-search').click(function() {
+    $('h6').each( function() {
+        if ($(this).text()!== $('#search-txt').val()) {
+            $(this).parent().parent().hide();
+        }
+        else {
+            $(this).parent().parent().show();
+        }
+    }    
+    )
+})
 
 
 
